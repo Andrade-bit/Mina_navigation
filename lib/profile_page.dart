@@ -1,8 +1,24 @@
+
 import 'package:flutter/material.dart';
- 
+import 'demo_auth.dart';
+import 'login_screen.dart';
+
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
- 
+
+  void logout(BuildContext context) {
+    // Clear the current logged-in user
+    DemoAuth.logout();
+
+    // Return to login screen and remove previous pages
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (context) => const LoginScreen(),
+      ),
+      (route) => false,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +37,9 @@ class ProfilePage extends StatelessWidget {
               color: Colors.white,
             ),
           ),
+
           const SizedBox(height: 16),
+
           const Text(
             'Andy Andrade Mina',
             textAlign: TextAlign.center,
@@ -30,7 +48,9 @@ class ProfilePage extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
+
           const SizedBox(height: 24),
+
           Card(
             child: Column(
               children: const [
@@ -50,6 +70,23 @@ class ProfilePage extends StatelessWidget {
                   subtitle: Text('student@example.com'),
                 ),
               ],
+            ),
+          ),
+
+          const SizedBox(height: 24),
+
+          ElevatedButton.icon(
+            onPressed: () {
+              logout(context);
+            },
+            icon: const Icon(Icons.logout),
+            label: const Text('Logout'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(
+                vertical: 16,
+              ),
             ),
           ),
         ],
