@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'home_page.dart';
+import 'dashboard_page.dart';
 import 'calculator_screen.dart';
 import 'profile_page.dart';
 import 'demo_auth.dart';
@@ -17,19 +17,17 @@ class _MainScreenState extends State<MainScreen> {
  
   late final List<Widget> pages;
  
-@override
-void initState() {
-  super.initState();
- 
-  pages = [
-    const HomePage(),
-    const CalculatorScreen(),
-    const ProfilePage(),
-    SocialMediaPage(
-      username: DemoAuth.currentUsername!,
-    ),
-  ];
-}
+  @override
+  void initState() {
+    super.initState();
+    final username = DemoAuth.currentUsername!;
+    pages = [
+      DashboardPage(username: username),
+      const CalculatorScreen(),
+      SocialMediaPage(username: username),
+      ProfilePage(username: username),
+    ];
+  }
  
   @override
   Widget build(BuildContext context) {
@@ -49,7 +47,7 @@ void initState() {
           NavigationDestination(
             icon: Icon(Icons.home_outlined),
             selectedIcon: Icon(Icons.home),
-            label: 'Home',
+            label: 'Dashboard',
           ),
           NavigationDestination(
             icon: Icon(Icons.calculate_outlined),
@@ -57,14 +55,14 @@ void initState() {
             label: 'Calculator',
           ),
           NavigationDestination(
+            icon: Icon(Icons.share_outlined),
+            selectedIcon: Icon(Icons.share),
+            label: 'Social',
+          ),
+          NavigationDestination(
             icon: Icon(Icons.person_outline),
             selectedIcon: Icon(Icons.person),
             label: 'Profile',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.share_outlined),
-            selectedIcon: Icon(Icons.share),
-            label: 'Social Media',
           ),
         ],
       ),

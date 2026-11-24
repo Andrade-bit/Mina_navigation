@@ -4,7 +4,9 @@ import 'demo_auth.dart';
 import 'login_screen.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+  final String username;
+
+  const ProfilePage({super.key, required this.username});
 
   void logout(BuildContext context) {
     // Clear the current logged-in user
@@ -51,6 +53,11 @@ class ProfilePage extends StatelessWidget {
 
           const SizedBox(height: 24),
 
+          ListTile(
+            leading: const Icon(Icons.account_circle),
+            title: const Text('Logged-in username'),
+            subtitle: Text(username),
+          ),
           Card(
             child: Column(
               children: const [
